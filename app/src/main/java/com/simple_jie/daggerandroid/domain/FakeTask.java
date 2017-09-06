@@ -5,4 +5,6 @@ package com.simple_jie.daggerandroid.domain;
  */
 
 public class FakeTask {
+    public FakeTask() {
+    }
 }

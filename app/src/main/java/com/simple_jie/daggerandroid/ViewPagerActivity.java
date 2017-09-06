@@ -1,26 +1,41 @@
-package com.simple_jie.daggerandroid.di;
+package com.simple_jie.daggerandroid;
 
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.simple_jie.daggerandroid.R;
+import com.simple_jie.daggerandroid.di.CodeName;
+import com.simple_jie.daggerandroid.domain.FakeTask;
+import com.simple_jie.daggerandroid.domain.SingletonFakeTask;
 
-public class ViewPagerActivity extends AppCompatActivity {
+import javax.inject.Inject;
+
+import dagger.android.support.DaggerAppCompatActivity;
+import dagger.android.support.DaggerFragment;
+
+public class ViewPagerActivity extends DaggerAppCompatActivity {
+
+    @Inject
+    FakeTask task;
+
+    @Inject
+    SingletonFakeTask singletonFakeTask;
+
+    @CodeName
+    @Inject
+    String codeName;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -57,11 +72,12 @@ public class ViewPagerActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Fake task " + task.hashCode() + " codeName=" + codeName, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                Toast.makeText(getApplication(), "Inject singletonFakeTask = " + (singletonFakeTask == null ? "null" : singletonFakeTask.hashCode()), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
 
@@ -90,7 +106,12 @@ public class ViewPagerActivity extends AppCompatActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class PlaceholderFragment extends DaggerFragment {
+        @Inject
+        FakeTask task;
+
+        @Inject
+        SingletonFakeTask singletonFakeTask;
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -117,7 +138,12 @@ public class ViewPagerActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_view_pager, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            StringBuilder builder = new StringBuilder(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            builder.append('\n');
+            builder.append("Fake task " + task.hashCode());
+            builder.append('\n');
+            builder.append("Inject singletonFakeTask = " + (singletonFakeTask == null ? "null" : singletonFakeTask.hashCode()));
+            textView.setText(builder.toString());
             return rootView;
         }
     }

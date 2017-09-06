@@ -2,7 +2,7 @@ package com.simple_jie.daggerandroid.di.module;
 
 import android.support.v4.app.Fragment;
 
-import com.simple_jie.daggerandroid.ViewPagerActivity;
+import com.simple_jie.daggerandroid.placeholder.PlaceholderFragment;
 import com.simple_jie.daggerandroid.di.PlaceholderFragmentComponent;
 
 import dagger.Binds;
@@ -17,6 +17,6 @@ import dagger.multibindings.IntoMap;
 public abstract class PlaceholderFragmentModule {
     @Binds
     @IntoMap
-    @dagger.android.support.FragmentKey(ViewPagerActivity.PlaceholderFragment.class)
+    @dagger.android.support.FragmentKey(PlaceholderFragment.class)
     abstract AndroidInjector.Factory<? extends Fragment> bind(PlaceholderFragmentComponent.Builder builder);
 }

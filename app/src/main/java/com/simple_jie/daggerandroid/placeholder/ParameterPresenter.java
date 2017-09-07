@@ -1,5 +1,7 @@
 package com.simple_jie.daggerandroid.placeholder;
 
+import com.simple_jie.daggerandroid.domain.FakeTask;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -10,12 +12,14 @@ import javax.inject.Named;
 public class ParameterPresenter implements PlaceHolderContract.Presenter {
     PlaceHolderContract.View view;
     String uid;
+    FakeTask task;
 
 
     @Inject
-    public ParameterPresenter(PlaceHolderContract.View view, @Named("UID") String uid) {
+    public ParameterPresenter(PlaceHolderContract.View view, @Named("UID") String uid, FakeTask task) {
         this.view = view;
         this.uid = uid;
+        this.task = task;
     }
 
     @Override

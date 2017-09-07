@@ -1,14 +1,13 @@
 package com.simple_jie.daggerandroid.placeholder;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.simple_jie.daggerandroid.R;
-import com.simple_jie.daggerandroid.domain.FakeTask;
-import com.simple_jie.daggerandroid.domain.SingletonFakeTask;
 
 import javax.inject.Inject;
 
@@ -17,12 +16,12 @@ import dagger.android.support.DaggerFragment;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends DaggerFragment {
+public class PlaceholderFragment extends DaggerFragment implements PlaceHolderContract.View {
     @Inject
-    FakeTask task;
+    PlaceHolderContract.Presenter presenter;
 
-    @Inject
-    SingletonFakeTask singletonFakeTask;
+    TextView textView;
+
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -48,13 +47,18 @@ public class PlaceholderFragment extends DaggerFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_view_pager, container, false);
-        TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-        StringBuilder builder = new StringBuilder(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-        builder.append('\n');
-        builder.append("Fake task " + task.hashCode());
-        builder.append('\n');
-        builder.append("Inject singletonFakeTask = " + (singletonFakeTask == null ? "null" : singletonFakeTask.hashCode()));
-        textView.setText(builder.toString());
+        textView = (TextView) rootView.findViewById(R.id.section_label);
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        presenter.start();
+    }
+
+    @Override
+    public void renderText(String text) {
+        textView.setText(text);
     }
 }

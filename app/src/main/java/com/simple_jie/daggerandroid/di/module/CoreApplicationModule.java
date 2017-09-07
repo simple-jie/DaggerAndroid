@@ -1,5 +1,9 @@
 package com.simple_jie.daggerandroid.di.module;
 
+import android.content.Context;
+
+import com.simple_jie.daggerandroid.CoreApp;
+import com.simple_jie.daggerandroid.di.Application;
 import com.simple_jie.daggerandroid.domain.FakeTask;
 
 import javax.inject.Singleton;
@@ -12,7 +16,14 @@ import dagger.Provides;
  */
 @Singleton
 @Module
-public class ApplicationModule {
+public class CoreApplicationModule {
+
+    @Application
+    @Provides
+    Context provideContext(CoreApp application) {
+        return application.getApplicationContext();
+    }
+
     @Provides
 //    @Singleton
     FakeTask provideFakeTask() {

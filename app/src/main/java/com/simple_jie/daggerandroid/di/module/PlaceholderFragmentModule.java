@@ -7,6 +7,9 @@ import com.simple_jie.daggerandroid.placeholder.PlaceHolderContract;
 import com.simple_jie.daggerandroid.placeholder.PlaceHolderPresenter;
 import com.simple_jie.daggerandroid.placeholder.PlaceholderFragment;
 
+import javax.inject.Named;
+
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 
@@ -14,10 +17,16 @@ import dagger.Provides;
  * Created by Xingbo.Jie on 6/9/17.
  */
 @Module
-public class PlaceholderFragmentModule {
+public abstract class PlaceholderFragmentModule {
+    @Binds
+    abstract PlaceHolderContract.View provideView(PlaceholderFragment fragment);
+
+    @Provides @Named("UID") static String provideUid(PlaceholderFragment fragment) {
+        return fragment.getUid();
+    }
 
     @Provides
-    PlaceHolderContract.Presenter providePresenter(PlaceholderFragment fragment, FakeTask task, SingletonFakeTask singletonFakeTask, @Model String model) {
+    static PlaceHolderContract.Presenter providePresenter(PlaceholderFragment fragment, FakeTask task, SingletonFakeTask singletonFakeTask, @Model String model) {
         return new PlaceHolderPresenter(fragment.getActivity(), task, singletonFakeTask, fragment, model);
     }
 }

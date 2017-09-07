@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.simple_jie.daggerandroid.R;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import dagger.android.support.DaggerFragment;
 
@@ -20,7 +21,16 @@ public class PlaceholderFragment extends DaggerFragment implements PlaceHolderCo
     @Inject
     PlaceHolderContract.Presenter presenter;
 
+    @Inject
+    ParameterPresenter parameter;
+
     TextView textView;
+
+    String uid = "someId";
+
+    public String getUid() {
+        return uid;
+    }
 
     /**
      * The fragment argument representing the section number for this

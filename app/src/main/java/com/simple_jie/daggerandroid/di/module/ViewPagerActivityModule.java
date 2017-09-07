@@ -2,6 +2,8 @@ package com.simple_jie.daggerandroid.di.module;
 
 import android.app.Activity;
 
+import com.simple_jie.daggerandroid.ViewPagerActivity;
+
 import dagger.Module;
 import dagger.Provides;
 import dagger.android.support.DaggerAppCompatActivity;
@@ -11,9 +13,9 @@ import dagger.android.support.DaggerAppCompatActivity;
  */
 
 @Module
-public class ActivityModule {
+public class ViewPagerActivityModule {
     @Provides
-    Activity provideActivity(DaggerAppCompatActivity appCompatActivity) {
-        return appCompatActivity;
+    Activity provideActivity(ViewPagerActivity activity) {
+        return activity;
     }
 }

@@ -17,10 +17,10 @@ public abstract class BuildersModule {
 //    @ActivityKey(MainActivity.class)
 //    abstract AndroidInjector.Factory<? extends Activity> bind(MainActivityComponent.Builder builder);
 
-    @ContributesAndroidInjector(modules = {ActivityModule.class})
+    @ContributesAndroidInjector
     abstract MainActivity mainActivityInjector();
 
-    @ContributesAndroidInjector(modules = {ActivityModule.class})
+    @ContributesAndroidInjector(modules = {ViewPagerActivityModule.class})
     abstract ViewPagerActivity viewPagerActivityInjector();
 
     @ContributesAndroidInjector(modules = {PlaceholderFragmentModule.class})

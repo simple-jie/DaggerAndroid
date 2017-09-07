@@ -22,7 +22,8 @@ public class PlaceholderFragment extends DaggerFragment implements PlaceHolderCo
     PlaceHolderContract.Presenter presenter;
 
     @Inject
-    ParameterPresenter parameter;
+    @Named("parameter")
+    PlaceHolderContract.Presenter parameter;
 
     TextView textView;
 

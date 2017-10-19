@@ -25,6 +25,9 @@ public class PlaceholderFragment extends DaggerFragment implements PlaceHolderCo
     @Named("parameter")
     PlaceHolderContract.Presenter parameter;
 
+    @Inject
+    AbstractData data;
+
     TextView textView;
 
     String uid = "someId";
@@ -65,11 +68,12 @@ public class PlaceholderFragment extends DaggerFragment implements PlaceHolderCo
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        presenter.start();
+        parameter.start();
     }
 
     @Override
     public void renderText(String text) {
+        text = text + ("\nAbstractData is null ? " + (data == null));
         textView.setText(text);
     }
 }

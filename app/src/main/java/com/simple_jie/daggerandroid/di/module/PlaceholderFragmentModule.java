@@ -3,6 +3,8 @@ package com.simple_jie.daggerandroid.di.module;
 import com.simple_jie.daggerandroid.di.Model;
 import com.simple_jie.daggerandroid.domain.FakeTask;
 import com.simple_jie.daggerandroid.domain.SingletonFakeTask;
+import com.simple_jie.daggerandroid.placeholder.AbstractData;
+import com.simple_jie.daggerandroid.placeholder.DataImpl;
 import com.simple_jie.daggerandroid.placeholder.ParameterPresenter;
 import com.simple_jie.daggerandroid.placeholder.PlaceHolderContract;
 import com.simple_jie.daggerandroid.placeholder.PlaceHolderPresenter;
@@ -31,6 +33,8 @@ public abstract class PlaceholderFragmentModule {
     @Named("parameter")
     abstract PlaceHolderContract.Presenter provideParameter(ParameterPresenter parameterPresenter);
 
+    @Binds
+    abstract AbstractData provideData(DataImpl data);
 
     @Provides
     static PlaceHolderContract.Presenter providePresenter(PlaceholderFragment fragment, FakeTask task, SingletonFakeTask singletonFakeTask, @Model String model) {

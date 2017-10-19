@@ -24,6 +24,6 @@ public class ParameterPresenter implements PlaceHolderContract.Presenter {
 
     @Override
     public void start() {
-
+        view.renderText("ParameterPresenter");
     }
 }
